@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="js/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<child :message="msg"></child>
+		<child message="其他的消息"></child>
+	</div>
+</body>
+<script type="text/javascript">
+new Vue({
+	el: "#app",
+	data:{
+		msg: '我是最大的'
+	},
+	components:{
+		child:{
+			// 模板只能有一个顶级元素
+			template: `<div>
+				<div>A custom component!</div>
+				{{message}}
+				<inner :inner-msg="message"></inner>
+				<span>我是span</span>
+			</div>`,
+			props:["message"],
+			components:{
+				inner:{
+					template:`
+						<div>
+							我是inner组件
+							{{innerMsg}}
+						</div>
+					`,
+					props:["innerMsg"]
+				}
+			}
+		}
+	}
+})
+</script>
+</html>

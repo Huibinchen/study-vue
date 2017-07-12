@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="js/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		{{total}}
+		<my-btn v-on:zhangsan="incrementTotal"></my-btn>
+		<my-btn v-on:zhangsan="incrementTotal"></my-btn>
+		<my-btn v-on:zhangsan="incrementTotal"></my-btn>
+	</div>
+</body>
+<script type="text/javascript">
+
+// 源数据
+// var model = {counter:0}
+
+Vue.component("my-btn",{
+	template:'<button @click="counterUp()">{{ counter }}</button>',
+	data:function (){
+		return {
+			counter: 0
+		}
+	},
+	methods:{
+		counterUp(){
+			this.counter++
+			this.$emit("zhangsan")
+		}
+	}
+})
+
+new Vue({
+	el: "#app",
+	data: {
+		total: 0
+	},
+	methods:{
+		incrementTotal(){
+			// console.log('触发了父组件的方法')
+			this.total++
+		}
+	}
+})
+</script>
+</html>

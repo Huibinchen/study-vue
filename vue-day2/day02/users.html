@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="js/vue.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+<div class="container" id="app">
+	<h1>Users</h1>
+	<hr>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>编辑</th>
+				<th>姓</th>
+				<th>名</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr v-for="(item,index) in model">
+				<td>
+					<button class="btn btn-default">
+						<span class="glyphicon glyphicon-pencil"></span>
+						编辑
+					</button>
+				</td>
+				<td>{{item.firstName}}</td>
+				<td>{{item.lastName}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<hr>
+	<button class="btn btn-default btn-success">
+		<span class="glyphicon glyphicon-user"></span>创建新用户
+	</button>
+	<hr>
+	<h2 v-show="createBol">创建新用户</h2>
+	<h2 v-show="!createBol">编辑用户</h2>
+	<form class="form-horizontal">
+		<div class="form-group">
+		    <label for="firstName" class="col-sm-1 control-label">姓：</label>
+		    <div class="col-sm-11">
+		      <input type="text" class="form-control" id="firstName" placeholder="请输入姓" v-model="firstName">
+		    </div>
+		</div>
+		<div class="form-group">
+		    <label for="lastName" class="col-sm-1 control-label">名：</label>
+		    <div class="col-sm-11">
+		      <input type="text" class="form-control" id="lastName" placeholder="请输入名" v-model="lastName">
+		    </div>
+		</div>
+		<div class="form-group">
+		    <label for="pass1" class="col-sm-1 control-label">密码：</label>
+		    <div class="col-sm-11">
+		      <input type="text" class="form-control" id="pass1" placeholder="请输入密码" v-model="pass1">
+		    </div>
+		</div>
+		<div class="form-group">
+		    <label for="pass2" class="col-sm-1 control-label">重复密码：</label>
+		    <div class="col-sm-11">
+		      <input type="text" class="form-control" id="pass2" placeholder="请再输入密码" v-model="pass2">
+		    </div>
+		</div>	
+	</form>
+	<hr>
+	<button class="btn btn-default btn-success" @click="save()" :disabled="editSave">
+		<span class="glyphicon glyphicon-save"></span>保存
+	</button>
+	<br><br><br><br><br><br><br><br><br><br>
+</div>
+</body>
+<script type="text/javascript">
+new Vue({
+	el:"#app",
+	data:{
+		model: [
+			{firstName: '唐', lastName: '菜也', pass: '123'},
+			{firstName: '陈', lastName: '志鹏', pass: '321'}
+		],
+		// 当前是编辑还是创建,true->创建，false-》编辑
+		createBol: true,
+		firstName: '',
+		lastName: '',
+		pass1: '',
+		pass2: ''
+	},
+	methods:{
+		init(){
+			this.firstName = ""
+			this.lastName = ""
+			this.pass1 = ""
+			this.pass2 = ""
+		},
+		save(){
+			var obj = {
+				firstName: this.firstName,
+				lastName: this.lastName
+			}
+			this.model.push(obj)
+
+			this.init()
+		}
+	},
+	computed:{
+		editSave(){
+
+			return !(this.firstName != "" && this.lastName != "" && this.pass1 != "" && this.pass1 == this.pass2)
+		}
+	}
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>

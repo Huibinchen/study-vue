@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="js/vue.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container" id="app">
+		<div class="page-header">
+			<h1>
+				{{model.user}}代办事项
+				<!-- label-warning -->
+				<span class='label label-default' :class="{'label-warning':count>2,'label-success':count<=2}">{{count}}</span>
+			</h1>
+		</div>
+		<div class="input-group">
+	      <input type="text" class="form-control" placeholder="添加任务" v-model="todo">
+	      <span class="input-group-btn">
+	        <button class="btn btn-default btn-success" type="button" @click="add()">添加</button>
+	      </span>
+	    </div>
+	    <br>
+	    <table class="table table-striped">
+	    	<thead>
+	    		<tr>
+	    			<th>详细内容</th>
+	    			<th>是否完成</th>
+	    		</tr>
+	    	</thead>
+	    	<tbody>
+	    		<tr v-for="(item,index) in items">
+	    			<td>{{item.action}}</td>
+	    			<td>
+	    				<input type="checkbox" v-model="item.done">
+	    			</td>
+	    			<td>{{item.done}}</td>
+	    		</tr>
+	    	</tbody>
+	    </table>
+	</div>
+</body>
+<script type="text/javascript">
+new Vue({
+	el:"#app",
+	data:{
+		model: {
+			user:'伍涛',
+			items:[{action:"买牙膏",done:false},
+				{action:"给张三发邮件",done:false},
+				{action:"给李四打电话",done:true},
+				{action:"还信用卡",done:false}]
+		},
+		todo: ""
+	},
+	methods:{
+		add(){
+
+			var obj = {
+				action: this.todo,
+				done: false
+			}
+			this.model.items.push(obj)
+		}
+	},
+	computed:{
+		count(){
+
+			return this.model.items.filter(item=>!item.done).length
+		},
+		items(){
+
+			return this.model.items.filter(item=>!item.done)
+		}
+	}
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>

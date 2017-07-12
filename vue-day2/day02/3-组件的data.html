@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="js/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<my-btn></my-btn>
+		<my-btn></my-btn>
+		<my-btn></my-btn>
+		<my-btn></my-btn>
+		<my-btn></my-btn>
+		<my-btn></my-btn>
+	</div>
+</body>
+<script type="text/javascript">
+
+// 源数据
+// var model = {counter:0}
+
+Vue.component("my-btn",{
+	template:'<button @click="counterUp()">{{ counter }}</button>',
+	data:function (){
+		return {
+			counter: 0
+		}
+	},
+	methods:{
+		counterUp(){
+			this.counter++
+		}
+	}
+})
+
+new Vue({
+	el: "#app"
+})
+</script>
+</html>
