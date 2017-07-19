@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+      body{
+        height: 3000px;
+      }
+      #wrap{
+        position: absolute;
+        top: 2000px;
+        width:100%;
+        border: 1px solid red;
+      }
+      #wrap2{
+        position: absolute;
+        top: 1500px;
+        width: 100%;
+        border: 1px solid green;
+      }
+      img{
+        width: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrap">
+      <img src="" data-src="img/1.jpg"/>
+    </div>
+    <div id="wrap2"><img src="" alt="" data-src="img/2.jpg" /></div>
+  </body>
+  <script type="text/javascript" src="jquery.js"></script>
+  <script type="text/javascript">
+  $(function (){
+
+    var imgs = $("img");
+    $(window).on("scroll",function (){
+      // 获取滚动条移动的距离
+      var t = $("body").scrollTop();
+      // 获取浏览器窗口底边的位置:t+可视区的高度
+      var b = t + $(window).height();
+      for (var i=0; i<imgs.length; i++){
+
+        // 如果图片距离文档头部的距离大于了b(浏览器底边)的距离说明就是能看到图片了
+
+        if (b>imgs.eq(i).offset().top){
+          //将data-src的地址赋值给src-》渲染
+          imgs.eq(i).attr("src",imgs.eq(i).attr("data-src"));
+        }
+      }
+    })
+  });
+  </script>
+</html>
